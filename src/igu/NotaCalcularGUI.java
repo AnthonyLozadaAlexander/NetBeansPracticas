@@ -1,5 +1,7 @@
 package igu;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -14,8 +16,7 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
    */
   public NotaCalcularGUI() {
     initComponents();
-    txtNotaFinal.setEnabled(false);
-    txtNota.setEnabled(false);
+   
   }
 
   /**
@@ -74,6 +75,8 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
 
     txtNotaFinal.setEditable(false);
 
+    txtNota.setEditable(false);
+
     txtAsistencia.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         txtAsistenciaActionPerformed(evt);
@@ -85,6 +88,11 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
 
     btnLimpiar.setFont(new java.awt.Font("Miracode", 0, 18)); // NOI18N
     btnLimpiar.setText("Limpiar");
+    btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLimpiarActionPerformed(evt);
+      }
+    });
 
     btnCalcular1.setFont(new java.awt.Font("Miracode", 0, 18)); // NOI18N
     btnCalcular1.setText("Calcular");
@@ -247,9 +255,10 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
 
   private void btnCalcular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcular1ActionPerformed
     // Declaracion de variables
-    String alumno="";
-    int asistencia=0;
-    double trabajoPractico=0, examenParcial=0, trabajoFinal=0, nota=0, notaFinal=0, examenFinal=0;
+    try{
+    String alumno;
+    int asistencia;
+    double trabajoPractico, examenParcial, trabajoFinal, nota, examenFinal;
     
     // Conversiones y Asignacion de variables a los txt
     alumno = txtAlumno.getText();
@@ -258,14 +267,43 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
     trabajoFinal = Double.parseDouble(txtTrabajoFinal.getText());
     examenParcial = Double.parseDouble(txtExamenParcial.getText());
     examenFinal = Double.parseDouble(txtExamenFinal.getText());
-    nota = Double.parseDouble(txtNota.getText());
-    notaFinal = Double.parseDouble(txtNotaFinal.getText());
     
     //Calculo Matematico
     nota = (asistencia + trabajoPractico + trabajoFinal + examenFinal + examenParcial);
-    notaFinal = (nota/5);
+    txtNota.setText(""+nota);
     
+    txtNota.setText(""+nota);
+    if(nota >= 70 && nota <= 79){
+      txtNotaFinal.setText("C");
+    }
+    else if(nota >= 80 && nota <= 89){
+      txtNotaFinal.setText("B");
+    }
+    else if(nota >= 90 && nota <= 100){
+      txtNotaFinal.setText("A");
+    }
+    else if(nota >= 101){
+      JOptionPane.showMessageDialog(null, "La nota maxima es 100 puntos");
+    }
+    else{
+      txtNotaFinal.setText("F");
+    }
+    }catch (Exception exception){
+      JOptionPane.showMessageDialog(this, "Error: " + exception);
+    }
   }//GEN-LAST:event_btnCalcular1ActionPerformed
+
+  private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    // TODO add your handling code here:
+    txtAlumno.setText("");
+    txtAsistencia.setText("");
+    txtNota.setText("");
+    txtTrabajoPractico.setText("");
+    txtTrabajoFinal.setText("");
+    txtNotaFinal.setText("");
+    txtExamenFinal.setText("");
+    txtExamenParcial.setText("");
+  }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
