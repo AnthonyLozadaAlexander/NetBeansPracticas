@@ -288,8 +288,8 @@ public class NotaCalcularGUI extends javax.swing.JFrame {
     else{
       txtNotaFinal.setText("F");
     }
-    }catch (Exception exception){
-      JOptionPane.showMessageDialog(this, "Error: " + exception);
+    }catch (Exception error){
+      JOptionPane.showMessageDialog(this, "Error: " + error);
     }
   }//GEN-LAST:event_btnCalcular1ActionPerformed
 
